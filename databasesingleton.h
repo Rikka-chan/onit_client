@@ -16,6 +16,7 @@ public:
 
 private:
     QSqlDatabase db;
+    QSqlDatabase db_params;
 
     DatabaseSingleton();
     ~DatabaseSingleton();

@@ -2,7 +2,8 @@
 
 DatabaseSingleton::DatabaseSingleton()
 {
-    db = QSqlDatabase::addDatabase("QPSQL", "main_connection");
+    db_params = QSqlDatabase::addDatabase("QSQLITE", "params");
+
 }
 
 
