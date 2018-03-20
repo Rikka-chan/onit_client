@@ -5,6 +5,7 @@
 #include <QGridLayout>
 #include "adduserdialog.h"
 #include "settingsdialog.h"
+#include "databasesingleton.h"
 
 class MainWindow : public QMainWindow
 {

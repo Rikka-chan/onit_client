@@ -8,11 +8,13 @@ MainWindow::MainWindow(QWidget *parent)
     central->setLayout(centralLayout);
     setCentralWidget(central);
 
-    AddUserDialog* add_user_dialog = new AddUserDialog();
-    add_user_dialog->exec();
+    DatabaseSingleton& db_instance = DatabaseSingleton::Instance();
+    bool is_connected = db_instance.connect();
 
-    SettingsDialog* sd = new SettingsDialog(this);
-    sd->exec();
+    if(!is_connected){
+        AddUserDialog* add_user = new AddUserDialog(this, "You need to create ADMIN user.", true);
+        add_user->exec();
+    }
 }
 MainWindow::~MainWindow()
 {
