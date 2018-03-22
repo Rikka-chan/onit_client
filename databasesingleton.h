@@ -18,6 +18,7 @@ public:
     }
     
     bool connect();
+    bool connect(QString host, QString user, QString password, QString port, QString database);
     void create_connection(QString host, QString user, QString password, QString port, QString database);
     void add_param(QString name, QString value);
     void update_param(QString name, QString value);

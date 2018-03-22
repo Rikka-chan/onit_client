@@ -2,8 +2,11 @@
 
 DatabaseSingleton::DatabaseSingleton()
 {
-    db_params = QSqlDatabase::addDatabase("QSQLITE", "params");
+    db_params = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
+    db.setDatabaseName("params.db");
     db.open();
+    qDebug() << db.lastError();
+    qDebug() << QSqlDatabase::drivers();
 
     QSqlQuery query;
     query.exec("CREATE TABLE IF NOT EXISTS params (name text NOT NULL PRIMARY KEY, value text);");
@@ -12,6 +15,7 @@ DatabaseSingleton::DatabaseSingleton()
     add_param("host", "");
     add_param("port", "");
     add_param("database", "");
+    qDebug() << query.lastError();
 }
 
 bool DatabaseSingleton::connect(){
@@ -21,6 +25,20 @@ bool DatabaseSingleton::connect(){
     db.setUserName(get_param("user"));
     db.setPassword(get_param("password"));
     db.setPort(get_param("port").toInt());
+
+    bool ok = db.open();
+    if(ok)
+        db_params.close();
+    return ok;
+}
+
+bool DatabaseSingleton::connect(QString host, QString user, QString password, QString port, QString database){
+    db =QSqlDatabase::addDatabase("QPSQL");
+    db.setHostName(host);
+    db.setDatabaseName(database);
+    db.setUserName(user);
+    db.setPassword(password);
+    db.setPort(port.toInt());
 
     bool ok = db.open();
     if(ok)
