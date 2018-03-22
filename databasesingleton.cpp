@@ -30,6 +30,8 @@ bool DatabaseSingleton::connect(){
 
 
 void DatabaseSingleton::create_connection(QString host, QString user, QString password, QString port, QString database){
+    if(!db_params.isOpen())
+        db_params.open();
     update_param("host", host);
     update_param("user", user);
     update_param("password", password);

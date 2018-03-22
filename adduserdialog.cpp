@@ -17,7 +17,7 @@ AddUserDialog::AddUserDialog(QWidget* parent, QString message, bool is_admin): Q
         username->setText("ADMIN");
         username->setEnabled(false);
     }
-    warning->setStyleSheet("font-color: #110000;");
+    warning->setStyleSheet("color: #110000;");
 
     QLabel* message_lbl = new QLabel(message, this);
     message_lbl->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
@@ -34,20 +34,23 @@ AddUserDialog::AddUserDialog(QWidget* parent, QString message, bool is_admin): Q
 
     main_layout->addWidget(create, main_layout->rowCount(), 1, 1, 2,Qt::AlignLeft);
 
-    connect(create, QPushButton::clicked, this, AddUserDialog::check);
-    connect(username, QLineEdit::textChanged, this, AddUserDialog::check);
-    connect(password, QLineEdit::textChanged, this, AddUserDialog::check);
-    connect(confirm, QLineEdit::textChanged, this, AddUserDialog::check);
+    connect(create, &QPushButton::clicked, [this]() {emit created(username->text(), password->text());});
+    connect(username, &QLineEdit::textChanged, this, &AddUserDialog::check);
+    connect(password, &QLineEdit::textChanged, this, &AddUserDialog::check);
+    connect(confirm, &QLineEdit::textChanged, this, &AddUserDialog::check);
 }
 
-bool AddUserDialog::check(QString){
+void AddUserDialog::check(){
     if(password->text() != confirm->text()){
         warning->setText("Passwords not matching!");
-        return false;
+        create->setEnabled(false);
     }
-    if(username->text().length() == 0){
+    else if(username->text().length() == 0){
         warning->setText("Username is empty!");
-        return false;
+        create->setEnabled(false);
     }
-    return true;
+    else{
+        warning->setText("");
+        create->setEnabled(true);
+    }
 }

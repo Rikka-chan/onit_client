@@ -4,6 +4,7 @@ SettingsDialog::SettingsDialog(QWidget* parent): QDialog(parent)
 {
     QGridLayout* main_layout = new QGridLayout(this);
     setLayout(main_layout);
+    warning = new QLabel("", this);
     password = new QLineEdit(this);
     user = new QLineEdit(this);
     host = new QLineEdit(this);
@@ -23,4 +24,10 @@ SettingsDialog::SettingsDialog(QWidget* parent): QDialog(parent)
     main_layout->addWidget(database, main_layout->rowCount() -1, 1);
 
     main_layout->addWidget(apply, main_layout->rowCount(), 1, 1,1,Qt::AlignRight);
+}
+
+void SettingsDialog::save(){
+    DatabaseSingleton& db_instance = DatabaseSingleton::Instance();
+    bool is_connected = db_instance.create_connection(host->text(), user->text(), password->text(), port->text(),database->text());
+
 }

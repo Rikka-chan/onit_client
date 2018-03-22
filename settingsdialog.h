@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QGridLayout>
+#include "databasesingleton.h"
 
 class SettingsDialog: public QDialog
 {
@@ -17,6 +18,9 @@ private:
     QLineEdit* database;
     QLineEdit* port;
     QPushButton* apply;
+    QLabel* warning;
+private slots:
+    void save();
 };
 
 #endif // SETTINGSDIALOG_H

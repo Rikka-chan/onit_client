@@ -16,6 +16,8 @@ public:
     ~MainWindow();
 private:
     QWidget* central;
+private slots:
+    void create_user(QString username, QString password);
 };
 
 #endif // MAINWINDOW_H

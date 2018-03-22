@@ -17,8 +17,10 @@ private:
     QLineEdit* confirm;
     QPushButton* create;
     QLabel* warning;
+signals:
+    void created(QString username, QString password);
 private slots:
-    bool check(QString);
+    void check();
 };
 
 #endif // ADDUSERDIALOG_H
