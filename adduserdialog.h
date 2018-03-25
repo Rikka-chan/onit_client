@@ -1,10 +1,13 @@
 #ifndef ADDUSERDIALOG_H
 #define ADDUSERDIALOG_H
+
+#include "databasesingleton.h"
 #include <QDialog>
 #include <QGridLayout>
 #include <QPushButton>
 #include <QLabel>
 #include <QLineEdit>
+#include <QCryptographicHash>
 
 class AddUserDialog: public QDialog
 {
@@ -17,10 +20,10 @@ private:
     QLineEdit* confirm;
     QPushButton* create;
     QLabel* warning;
-signals:
-    void created(QString username, QString password);
+
 private slots:
     void check();
+    void create_user();
 };
 
 #endif // ADDUSERDIALOG_H

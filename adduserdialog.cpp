@@ -14,7 +14,7 @@ AddUserDialog::AddUserDialog(QWidget* parent, QString message, bool is_admin): Q
     confirm->setEchoMode(QLineEdit::Password);
 
     if(is_admin){
-        username->setText("ADMIN");
+        username->setText("admin");
         username->setEnabled(false);
     }
     warning->setStyleSheet("color: #110000;");
@@ -34,7 +34,7 @@ AddUserDialog::AddUserDialog(QWidget* parent, QString message, bool is_admin): Q
 
     main_layout->addWidget(create, main_layout->rowCount(), 1, 1, 2,Qt::AlignLeft);
 
-    connect(create, &QPushButton::clicked, [this]() {emit created(username->text(), password->text());});
+    connect(create, &QPushButton::clicked, this, &AddUserDialog::create_user);
     connect(username, &QLineEdit::textChanged, this, &AddUserDialog::check);
     connect(password, &QLineEdit::textChanged, this, &AddUserDialog::check);
     connect(confirm, &QLineEdit::textChanged, this, &AddUserDialog::check);
@@ -53,4 +53,10 @@ void AddUserDialog::check(){
         warning->setText("");
         create->setEnabled(true);
     }
+}
+
+void AddUserDialog::create_user(){
+    DatabaseSingleton& db_instance = DatabaseSingleton::Instance();
+    db_instance.add_user(username->text(),
+                         QCryptographicHash::hash(password->text().toUtf8(), QCryptographicHash::Md5));
 }
