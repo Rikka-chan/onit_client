@@ -37,6 +37,10 @@ MainWindow::MainWindow(QWidget *parent)
     central_layout->addWidget(users_table, central_layout->rowCount(), 0);
 }
 
+void MainWindow::fill_users_table(){
+
+}
+
 MainWindow::~MainWindow()
 {
 

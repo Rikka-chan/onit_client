@@ -23,6 +23,7 @@ private:
     QTableWidget* animals_table;
     QWidget* central;
     QString username;
+    void fill_users_table();
 };
 
 #endif // MAINWINDOW_H

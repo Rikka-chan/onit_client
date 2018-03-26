@@ -26,6 +26,7 @@ public:
     void add_user(QString username, QString password);
     bool login(QString username, QString password);
     QString get_param(QString name);
+    QStringList get_users();
 
 private:
     QSqlDatabase db;

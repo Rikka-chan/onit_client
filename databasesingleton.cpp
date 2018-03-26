@@ -123,6 +123,17 @@ bool DatabaseSingleton::login(QString username, QString password){
     return query.value(0).toBool();
 }
 
+QStringList DatabaseSingleton::get_users(){
+    QSqlQuery query(db);
+    QStringList result;
+    query.exec("SELECT login FROM \"user\";");
+    while(query.next()){
+        result.append(query.value(0).toString());
+    }
+    qDebug() << query.lastError();
+    return result;
+}
+
 DatabaseSingleton::~DatabaseSingleton()
 {
 }
