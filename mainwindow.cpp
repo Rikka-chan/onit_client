@@ -33,12 +33,21 @@ MainWindow::MainWindow(QWidget *parent)
     users_table->setRowCount(0);
     users_table->setColumnCount(1);
     users_table->setHorizontalHeaderLabels(QStringList("Username"));
+    users_table->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    add_user_btn = new QPushButton("Add user", this);
 
     central_layout->addWidget(users_table, central_layout->rowCount(), 0);
+    central_layout->addWidget(add_user_btn, central_layout->rowCount() -1, 1, Qt::AlignTop);
+    fill_users_table();
 }
 
 void MainWindow::fill_users_table(){
-
+    QStringList users = DatabaseSingleton::Instance().get_users();
+    users_table->setRowCount(users.length());
+    for(int i =0; i< users.length();i++){
+        QTableWidgetItem* tmp = new QTableWidgetItem(users[i]);
+        users_table->setItem(i, 0, tmp);
+    }
 }
 
 MainWindow::~MainWindow()

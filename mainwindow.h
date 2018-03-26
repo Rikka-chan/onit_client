@@ -24,6 +24,7 @@ private:
     QWidget* central;
     QString username;
     void fill_users_table();
+    QPushButton* add_user_btn;
 };
 
 #endif // MAINWINDOW_H
