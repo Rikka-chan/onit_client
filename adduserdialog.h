@@ -20,6 +20,7 @@ private:
     QLineEdit* confirm;
     QPushButton* create;
     QLabel* warning;
+    bool is_admin;
 
 private slots:
     void check();

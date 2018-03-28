@@ -29,11 +29,13 @@ SOURCES += \
     databasesingleton.cpp \
     connectdialog.cpp \
     adduserdialog.cpp \
-    settingsdialog.cpp
+    settingsdialog.cpp \
+    addanimaldialog.cpp
 
 HEADERS += \
         mainwindow.h \
     databasesingleton.h \
     connectdialog.h \
     adduserdialog.h \
-    settingsdialog.h
+    settingsdialog.h \
+    addanimaldialog.h

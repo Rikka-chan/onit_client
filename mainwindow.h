@@ -6,7 +6,9 @@
 #include <QTimer>
 #include <QTableWidget>
 #include <QTableWidgetItem>
+#include <QCheckBox>
 
+#include "addanimaldialog.h"
 #include "adduserdialog.h"
 #include "settingsdialog.h"
 #include "databasesingleton.h"
@@ -23,8 +25,17 @@ private:
     QTableWidget* animals_table;
     QWidget* central;
     QString username;
-    void fill_users_table();
+    User user;
     QPushButton* add_user_btn;
+    QPushButton* delete_user_btn;
+    QPushButton* add_animal_btn;
+    QPushButton* delete_animal_btn;
+    Permission permissions;
+    bool users_filled;
+    bool animals_filled;
+
+    void fill_users_table();
+    void fill_animals_table();
 };
 
 #endif // MAINWINDOW_H

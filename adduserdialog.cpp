@@ -3,6 +3,7 @@
 
 AddUserDialog::AddUserDialog(QWidget* parent, QString message, bool is_admin): QDialog(parent)
 {
+    this->is_admin = is_admin;
     QGridLayout* main_layout = new QGridLayout(this);
     setLayout(main_layout);
     create = new QPushButton("Create", this);
@@ -38,6 +39,7 @@ AddUserDialog::AddUserDialog(QWidget* parent, QString message, bool is_admin): Q
     connect(username, &QLineEdit::textChanged, this, &AddUserDialog::check);
     connect(password, &QLineEdit::textChanged, this, &AddUserDialog::check);
     connect(confirm, &QLineEdit::textChanged, this, &AddUserDialog::check);
+    this->setWindowTitle("Create a new user");
 }
 
 void AddUserDialog::check(){
@@ -59,4 +61,13 @@ void AddUserDialog::create_user(){
     DatabaseSingleton& db_instance = DatabaseSingleton::Instance();
     db_instance.add_user(username->text(),
                          QCryptographicHash::hash(password->text().toUtf8(), QCryptographicHash::Md5));
+    User user = DatabaseSingleton::Instance().get_user(username->text());
+    DatabaseSingleton::Instance().add_permission(user.id, "READ");
+    if(is_admin){
+            DatabaseSingleton::Instance().add_permission(user.id, "ADMIN");
+            DatabaseSingleton::Instance().add_permission(user.id, "WRITE");
+            DatabaseSingleton::Instance().add_permission(user.id, "UPDATE");
+            DatabaseSingleton::Instance().add_permission(user.id, "DELETE");
+    }
+    close();
 }

@@ -22,6 +22,7 @@ ConnectDialog::ConnectDialog(QWidget* parent): QDialog(parent)
  main_layout->addWidget(login_btn, main_layout->rowCount(), 0, 1, 2, Qt::AlignRight);
 
  connect(login_btn, &QPushButton::clicked, this, &ConnectDialog::login);
+ this->setWindowTitle("Sign in");
 }
 
 
